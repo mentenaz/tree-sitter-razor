@@ -60,6 +60,17 @@ Known limits: a literal `<` inside `<script>` or `<style>` text still confuses t
 raw-text treatment of those elements would fix it), and `@:` is only recognised in a code
 block's body.
 
+### Future improvements
+
+1. **Raw-text `<script>` and `<style>` elements.** Give those two tags their own rules and two
+   external text tokens (one ending at `</script`, one at `</style`), so a `<` comparison or markup in a
+   string no longer breaks the parse, while `@` expressions and Razor comments inside them are still
+   parsed.
+2. Parse `@name` and `@(...)` expressions inside an `@:` line, instead of keeping the whole line as
+   `text_content`.
+3. Treat `user@example.com` as text (an `@` directly after a letter or digit is not an expression),
+   as Razor does.
+
 ## License
 
 MIT
