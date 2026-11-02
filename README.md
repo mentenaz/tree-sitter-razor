@@ -40,6 +40,24 @@ The `word` property is set to `$.identifier` and all Razor keywords are matched 
 | `queries/highlights.scm` | Syntax highlighting for Razor-specific nodes |
 | `queries/injections.scm` | Injects `csharp` into C# content nodes |
 
+## About this fork
+
+This is a fork of [dsbraz/tree-sitter-razor](https://github.com/dsbraz/tree-sitter-razor),
+maintained by [Mentenaz](https://github.com/mentenaz) for the Razor extension used by
+[Mentenaz Forge Super](https://forge.mentenaz-server.com). It differs from upstream in how
+markup text is read (see `test/corpus/markup_braces_and_escapes.txt`):
+
+- Braces are ordinary text inside an HTML element, so `<style>`, `<script>`, JSON and
+  prose containing `{` and `}` parse without errors. A `}` still closes a Razor block when
+  it sits directly in that block's body.
+- `@@` (an escaped at sign) is a `razor_escaped_at` node.
+- `@:` (a single line of markup in a code block) is a `razor_text_line` node holding the
+  rest of the line as `text_content`; an expression inside that line is not parsed separately.
+
+Known limits: a literal `<` inside `<script>` or `<style>` text still confuses the parser (a
+raw-text treatment of those elements would fix it), and `@:` is only recognised in a code
+block's body.
+
 ## License
 
 MIT
