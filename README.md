@@ -50,6 +50,8 @@ markup text is read (see `test/corpus/markup_braces_and_escapes.txt`):
 - Braces are ordinary text inside an HTML element, so `<style>`, `<script>`, JSON and
   prose containing `{` and `}` parse without errors. A `}` still closes a Razor block when
   it sits directly in that block's body.
+- A quoted attribute value may contain the other kind of quote, so `onclick="showTab('one')"` and
+  `data-text='say "hi"'` parse (see `test/corpus/attribute_quotes.txt`).
 - `@@` (an escaped at sign) is a `razor_escaped_at` node.
 - `@:` (a single line of markup in a code block) is a `razor_text_line` node holding the
   rest of the line as `text_content`; an expression inside that line is not parsed separately.
